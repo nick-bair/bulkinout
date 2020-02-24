@@ -8,7 +8,9 @@ const R = require('ramda')
 module.exports = async (api, resource, options) => {
     try {
         //begin timing bulk function
-        const begin = require('../util/timer')
+        const timer = require('../util/timer')
+        const start = timer.begin()
+
         const getBulk = R.pipeP(
             bulkQuery(api.post),
             bulkStatus(api.get),
@@ -17,7 +19,7 @@ module.exports = async (api, resource, options) => {
         )
         const rows = await getBulk(`select * from ${resource} where ${options.where}`)
         //report result with duration
-        console.log(`ce-bulk,${rows ? rows.length : 0},${resource},${begin.end()} sec`)
+        console.log(`ce-bulk,${rows ? rows.length : 0},${resource},${timer.end(start)} sec`)
 
     } catch (e) {
         console.log(e.message ? e.message : e)

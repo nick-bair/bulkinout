@@ -1,7 +1,10 @@
 'use strict'
-const start = new Date()
-const end = () => {
+
+
+const begin = () => new Date()
+
+const end = (start) => {
     return (new Date() - start) / 1000
 }
 
-module.exports = { end }
+module.exports = { begin, end }
