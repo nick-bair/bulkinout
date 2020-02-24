@@ -7,6 +7,8 @@
 const R = require('ramda')
 module.exports = async (api, resource, options) => {
     try {
+        const query = options.where ? `select * from ${resource} where ${options.where}` : `select * from ${resource}`
+                
         //begin timing bulk function
         const timer = require('../util/timer')
         const start = timer.begin()
@@ -17,9 +19,9 @@ module.exports = async (api, resource, options) => {
             bulkData(api.get, resource),
             fixJsonData
         )
-        const rows = await getBulk(`select * from ${resource} where ${options.where}`)
+        const rows = await getBulk(query)
         //report result with duration
-        console.log(`ce-bulk,${rows ? rows.length : 0},${resource},${timer.end(start)} sec`)
+        console.log(`ce-bulk,${rows ? rows.length : 0},${resource},${timer.end(start)},seconds,${options.where ? options.where :''}`)
 
     } catch (e) {
         console.log(e.message ? e.message : e)
@@ -33,6 +35,7 @@ const bulkData = R.curry(async (req, tbl, id) => {
 
 const bulkQuery = R.curry(async (req, q) => {
     let bulk = await req(`/bulk/query?q=${q}`, '')
+    console.log(`  bulk id:${bulk.id} submitted `)
     return bulk.id
 })
 

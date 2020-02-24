@@ -5,7 +5,7 @@ module.exports = async (api, resource, options) => {
     const start = timer.begin()
     const rows = await getRows(api.get, resource, options)
     //report result with duration
-    console.log(`ce-gets,${rows ? rows.length : 0},${resource},${timer.end(start)} sec`)
+    console.log(`ce-gets,${rows ? rows.length : 0},${resource},${timer.end(start)},seconds,${options.where ? options.where :''}`)
 }
 
 const getRows = async (get, resource, options) => {
