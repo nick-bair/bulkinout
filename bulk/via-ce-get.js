@@ -1,11 +1,11 @@
-module.exports = async (api, resource, options) => {
+module.exports = async (api, element, resource, options) => {
   
    //begin timing bulk function
     const timer = require('../util/timer')
     const start = timer.begin()
     const rows = await getRows(api.get, resource, options)
     //report result with duration
-    console.log(`ce-gets,${rows ? rows.length : 0},${resource},${timer.end(start)},seconds,${options.where ? options.where :''}`)
+    console.log(`ce-get,${rows ? rows.length : 0},${element},${resource},${timer.end(start)},seconds,${options.where ? options.where :''},get-loop`)
 }
 
 const getRows = async (get, resource, options) => {

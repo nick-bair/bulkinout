@@ -5,7 +5,7 @@
  */
 
 const R = require('ramda')
-module.exports = async (api, resource, options) => {
+module.exports = async (api, element ,resource, options) => {
     try {
         const query = options.where ? `select * from ${resource} where ${options.where}` : `select * from ${resource}`
                 
@@ -21,7 +21,7 @@ module.exports = async (api, resource, options) => {
         )
         const rows = await getBulk(query)
         //report result with duration
-        console.log(`ce-bulk,${rows ? rows.length : 0},${resource},${timer.end(start)},seconds,${options.where ? options.where :''}`)
+        console.log(`connector-js,${rows ? rows.length : 0},${element},${resource},${timer.end(start)},seconds,${options.where ? options.where :''},bulk-v1`)
 
     } catch (e) {
         console.log(e.message ? e.message : e)
@@ -35,7 +35,7 @@ const bulkData = R.curry(async (req, tbl, id) => {
 
 const bulkQuery = R.curry(async (req, q) => {
     let bulk = await req(`/bulk/query?q=${q}`, '')
-    console.log(`  bulk id:${bulk.id} submitted `)
+    console.log(`bulk id:${bulk.id} submitted `)
     return bulk.id
 })
 
