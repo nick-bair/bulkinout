@@ -18,7 +18,9 @@ const get = curry(async (path, query) => {
         qs: query,
         url: process.env.BASE_URL + '/elements/api-v2' + path,
         method: "GET",
-        transform: _include_headers
+        transform: _include_headers,
+        simple: false,
+        resolveWithFullResponse: true
     };
     return await rp(options)
 })

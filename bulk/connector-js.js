@@ -5,7 +5,7 @@
  */
 
 const R = require('ramda')
-module.exports = async (api, element, resource, options) => {
+module.exports = async (test, api, element, resource, options) => {
     try {
         const query = options.where ? `select * from ${resource} where ${options.where}` : `select * from ${resource}`
 
@@ -21,8 +21,7 @@ module.exports = async (api, element, resource, options) => {
         )
         const rows = await getBulk(query)
         //report result with duration
-        const bulkStats = { id: 'connector-js', count: `${rows ? rows.length : 0}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1` }
-
+        const bulkStats = { id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1` }
         console.log(bulkStats)
         return bulkStats
 

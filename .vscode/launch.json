@@ -16,7 +16,9 @@
                 "DOCTOR_ACCOUNT": "stg-thanos",
                 "ELEMENT_TOKEN": "",
                 "ELEMENT_KEY":"smartrecruiters",
-                "ELEMENT_RESOURCE":"jobs"
+                "ELEMENT_RESOURCE":"jobs",
+                "VENDOR_TOKEN":"",
+                "VENDOR_BASE_URL": "https://api.smartrecruiters.com"
                 //"BASE_URL": "https://staging.cloud-elements.com",
                 //"USER_SECRET": "",
                 //"ORG_SECRET": "",
