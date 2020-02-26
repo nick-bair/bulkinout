@@ -5,19 +5,17 @@ const otc = require('objects-to-csv')
 const processBulkTests = async (options) => {
     try {
         let api
+        // optionally sets env vars via doctor account
+        require('./util/loadAccount')()
+        // ensure necessary envs set
+        require('./util/required')(['BASE_URL', 'ELEMENT_TOKEN', 'USER_SECRET', 'ORG_SECRET', 'ELEMENT_KEY', 'ELEMENT_RESOURCE'])
+        api = require('./util/api')
 
-        if (!process.env.VENDOR_DIRECT) {
-            // optionally sets env vars via doctor account
-            require('./util/loadAccount')()
-            // ensure necessary envs set
-            require('./util/required')(['BASE_URL', 'ELEMENT_TOKEN', 'USER_SECRET', 'ORG_SECRET','ELEMENT_KEY','ELEMENT_RESOURCE'])
-            api = require('./util/api')
+        await exec_bulk('via-ce-get', api, element, resource, options)
+        await exec_bulk('via-connector-js', api, element, resource, options)
 
-            await exec_bulk('via-ce-get', api, element, resource, options)
-            await exec_bulk('via-connector-js', api, element, resource, options)
-        }
-        else if (element === 'smartrecruiters' && process.env.VENDOR_DIRECT) {
-            // no mechanisim for custom yet, mutate here
+        // vendor direct if available
+        if (element === 'smartrecruiters' && process.env.VENDOR_TOKEN) {
             options = {
                 limit: 100,
                 offset: 0,

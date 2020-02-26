@@ -22,9 +22,8 @@ ELEMENT_RESOURCE:[cloud elements element resource name]
 Requires custom implementation
 ```
 # smartrecruiters
-"VENDOR_DIRECT": "true",
-"ELEMENT_TOKEN": ["X-SmartToken"], // can obtain via element builder prehook 
-"BASE_URL": "https://api.smartrecruiters.com"
+"VENDOR_TOKEN": ["X-SmartToken"], // can obtain via element builder prehook 
+"VENDOR_BASE_URL": "https://api.smartrecruiters.com"
 ```
 
 2. `$ npm start`

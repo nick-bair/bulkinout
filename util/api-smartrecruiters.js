@@ -7,10 +7,10 @@ const get = curry(async (path, query) => {
     let options = {
         json: true,
         headers: {
-            "X-SmartToken": process.env.ELEMENT_TOKEN
+            "X-SmartToken": process.env.VENDOR_TOKEN
         },
         qs: query,
-        url: process.env.BASE_URL  + '/' + path,
+        url: process.env.VENDOR_BASE_URL  + '/' + path,
         method: "GET",
         transform: _include_headers,
         simple: false,
