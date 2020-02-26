@@ -5,10 +5,10 @@
  */
 
 const R = require('ramda')
-module.exports = async (api, element ,resource, options) => {
+module.exports = async (api, element, resource, options) => {
     try {
         const query = options.where ? `select * from ${resource} where ${options.where}` : `select * from ${resource}`
-                
+
         //begin timing bulk function
         const timer = require('../util/timer')
         const start = timer.begin()
@@ -21,10 +21,14 @@ module.exports = async (api, element ,resource, options) => {
         )
         const rows = await getBulk(query)
         //report result with duration
-        console.log(`connector-js,${rows ? rows.length : 0},${element},${resource},${timer.end(start)},seconds,${options.where ? options.where :''},bulk-v1`)
+        const bulkStats = { id: 'connector-js', count: `${rows ? rows.length : 0}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1` }
+
+        console.log(bulkStats)
+        return bulkStats
 
     } catch (e) {
         console.log(e.message ? e.message : e)
+        return { message: e.message ? e.message : e }
     }
 }
 
@@ -35,7 +39,7 @@ const bulkData = R.curry(async (req, tbl, id) => {
 
 const bulkQuery = R.curry(async (req, q) => {
     let bulk = await req(`/bulk/query?q=${q}`, '')
-    console.log(`bulk id:${bulk.id} submitted `)
+    console.log(`connector-js status: bulk id:${bulk.id} submitted `)
     return bulk.id
 })
 
@@ -48,7 +52,7 @@ const bulkStatus = R.curry(async (req, id) => {
         } else if (!R.contains(check.data.status, ['RUNNING', 'CREATED', 'SCHEDULED', 'CANCELLATION_PENDING'])) {
             throw new Error(`Status: ${check.body.status}, Table: ${check.body.object_name}, Bulk id: ${id}, Error: ${check.body.error}, infoMessage: ${check.body.infoMessage}`)
         }
-        //console.log(`ce-bulk status: recordsCount ${check.data.recordsCount}`)
+        console.log(`connector-js status: recordsCount ${check.data.recordsCount}`)
     }
 })
 

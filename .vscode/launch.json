@@ -14,7 +14,9 @@
             "program": "${workspaceFolder}/index.js",
             "env": {
                 "DOCTOR_ACCOUNT": "stg-thanos",
-                "ELEMENT_TOKEN": ""
+                "ELEMENT_TOKEN": "",
+                "ELEMENT_KEY":"smartrecruiters",
+                "ELEMENT_RESOURCE":"jobs"
                 //"BASE_URL": "https://staging.cloud-elements.com",
                 //"USER_SECRET": "",
                 //"ORG_SECRET": "",
@@ -36,6 +38,8 @@
             "env": {
                 "VENDOR_DIRECT": "true",
                 "ELEMENT_TOKEN": "",
+                "ELEMENT_KEY":"smartrecruiters",
+                "ELEMENT_RESOURCE":"jobs",
                 "BASE_URL": "https://api.smartrecruiters.com"
             },
             "skipFiles": [
