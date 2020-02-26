@@ -24,6 +24,25 @@
                 "${workspaceFolder}/lib/**/*.js",
                 "<node_internals>/**/*.js"
             ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "vendor-smartrecruiters",
+            "runtimeArgs": [
+                "--preserve-symlinks"
+            ],
+            "program": "${workspaceFolder}/index.js",
+            "env": {
+                "VENDOR_DIRECT": "true",
+                "ELEMENT_TOKEN": "",
+                "BASE_URL": "https://api.smartrecruiters.com"
+            },
+            "skipFiles": [
+                "${workspaceFolder}/node_modules/**/*.js",
+                "${workspaceFolder}/lib/**/*.js",
+                "<node_internals>/**/*.js"
+            ]
         }
     ]
 }
