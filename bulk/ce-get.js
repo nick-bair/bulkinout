@@ -7,7 +7,7 @@ module.exports = async (api, element, resource, options) => {
     const rows = await getRows(api.get, resource, options)
 
     //report result with duration
-    const bulkStats = { id: 'ce-get', count: `${rows ? rows.length : 0}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `node-get-loop` }
+    const bulkStats = { id: 'ce-get', count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `node-get-loop` }
 
     console.log(bulkStats)
     return bulkStats

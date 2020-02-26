@@ -36,11 +36,10 @@
             ],
             "program": "${workspaceFolder}/index.js",
             "env": {
-                "VENDOR_DIRECT": "true",
-                "ELEMENT_TOKEN": "",
+                "VENDOR_TOKEN": "",
                 "ELEMENT_KEY":"smartrecruiters",
                 "ELEMENT_RESOURCE":"jobs",
-                "BASE_URL": "https://api.smartrecruiters.com"
+                "VENDOR_BASE_URL": "https://api.smartrecruiters.com"
             },
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",

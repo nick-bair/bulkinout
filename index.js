@@ -11,8 +11,8 @@ const processBulkTests = async (options) => {
         require('./util/required')(['BASE_URL', 'ELEMENT_TOKEN', 'USER_SECRET', 'ORG_SECRET', 'ELEMENT_KEY', 'ELEMENT_RESOURCE'])
         api = require('./util/api')
 
-        await exec_bulk('via-ce-get', api, element, resource, options)
-        await exec_bulk('via-connector-js', api, element, resource, options)
+        await exec_bulk('ce-get', api, element, resource, options)
+        await exec_bulk('connector-js', api, element, resource, options)
 
         // vendor direct if available
         if (element === 'smartrecruiters' && process.env.VENDOR_TOKEN) {
@@ -22,7 +22,7 @@ const processBulkTests = async (options) => {
                 createdOn: '2020-02-21T20:33:58.000Z'
             }
             api = require('./util/api-smartrecruiters')
-            await require('./bulk/via-smartrecruiters-get')(api, element, resource, options)
+            await require('./bulk/smartrecruiters-direct-get')(api, element, resource, options)
         }
     } catch (e) {
         console.log({ message: e.message ? e.message : e })
