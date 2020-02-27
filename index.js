@@ -1,6 +1,5 @@
 'use-strict'
 const otc = require('objects-to-csv')
-// TODO parameterize loading resource, options
 
 const processBulkTests = async (options) => {
     try {
@@ -8,14 +7,14 @@ const processBulkTests = async (options) => {
         // optionally sets env vars via doctor account
         require('./util/loadAccount')()
         // ensure necessary envs set
-        require('./util/required')(['BASE_URL', 'ELEMENT_TOKEN', 'USER_SECRET', 'ORG_SECRET', 'ELEMENT_KEY', 'ELEMENT_RESOURCE'])
+        require('./util/required')(['BASE_URL', 'BULKINOUT_ELEMENT_TOKEN', 'USER_SECRET', 'ORG_SECRET', 'BULKINOUT_ELEMENT_KEY', 'BULKINOUT_ELEMENT_RESOURCE'])
         api = require('./util/api')
 
         await exec_bulk('ce-get', api, element, resource, options)
         await exec_bulk('connector-js', api, element, resource, options)
 
         // vendor direct if available
-        if (element === 'smartrecruiters' && process.env.VENDOR_TOKEN) {
+        if (element === 'smartrecruiters' && process.env.BULKINOUT_VENDOR_TOKEN) {
             //smartrecruiters, per kibana, If I send this to CE, we transform from: createdOn='2020-02-21T20:33:58.000Z'
             //ce sends this:
             //updatedAfter = '1950-01-01T00:00:00.000Z' AND createdOn = '2020-02-21T20:33:58.000Z'
@@ -39,9 +38,9 @@ const exec_bulk = async (test, api, element, resource, options) => {
 }
 
 //--------------- run program ------------------------//
-const element = process.env.ELEMENT_KEY
-const resource = process.env.ELEMENT_RESOURCE
-let options = process.env.ELEMENT_REQUEST_OPTIONS ? process.env.ELEMENT_REQUEST_OPTIONS : {
+const element = process.env.BULKINOUT_ELEMENT_KEY
+const resource = process.env.BULKINOUT_ELEMENT_RESOURCE
+let options = process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS ? process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS : {
     pageSize: 200,
     where: `LastUpdateDate='2020-02-21T20:33:58.000Z'`
 }

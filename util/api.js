@@ -1,7 +1,7 @@
 'use strict';
 
-const authData = process.env.ELEMENT_TOKEN !== undefined ? 
-    `User ${process.env.USER_SECRET}, Organization ${process.env.ORG_SECRET} , Element ${process.env.ELEMENT_TOKEN}` :
+const authData = process.env.BULKINOUT_ELEMENT_TOKEN !== undefined ? 
+    `User ${process.env.USER_SECRET}, Organization ${process.env.ORG_SECRET} , Element ${process.env.BULKINOUT_ELEMENT_TOKEN}` :
     `User ${process.env.USER_SECRET}, Organization ${process.env.ORG_SECRET}`
 
 const { curry } = require('ramda')

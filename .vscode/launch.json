@@ -14,11 +14,11 @@
             "program": "${workspaceFolder}/index.js",
             "env": {
                 "DOCTOR_ACCOUNT": "stg-thanos",
-                "ELEMENT_TOKEN": "",
-                "ELEMENT_KEY":"smartrecruiters",
-                "ELEMENT_RESOURCE":"jobs",
-                "VENDOR_TOKEN":"",
-                "VENDOR_BASE_URL": "https://api.smartrecruiters.com"
+                "BULKINOUT_ELEMENT_TOKEN": "/J4gqBsV506ND0LSxY7P9yv0ot5ljqcyMPZt8RvXkZc=",
+                "BULKINOUT_ELEMENT_KEY":"smartrecruiters",
+                "BULKINOUT_ELEMENT_RESOURCE":"candidates",
+                "BULKINOUT_VENDOR_TOKEN":"98a4f8496eba4e31bbd67dbaaef9a2fa",
+                "BULKINOUT_VENDOR_BASE_URL": "https://api.smartrecruiters.com"
                 //"BASE_URL": "https://staging.cloud-elements.com",
                 //"USER_SECRET": "",
                 //"ORG_SECRET": "",
@@ -38,10 +38,10 @@
             ],
             "program": "${workspaceFolder}/index.js",
             "env": {
-                "VENDOR_TOKEN": "",
-                "ELEMENT_KEY":"smartrecruiters",
-                "ELEMENT_RESOURCE":"jobs",
-                "VENDOR_BASE_URL": "https://api.smartrecruiters.com"
+                "BULKINOUT_VENDOR_TOKEN": "",
+                "BULKINOUT_ELEMENT_KEY":"smartrecruiters",
+                "BULKINOUT_ELEMENT_RESOURCE":"jobs",
+                "BULKINOUT_VENDOR_BASE_URL": "https://api.smartrecruiters.com"
             },
             "skipFiles": [
                 "${workspaceFolder}/node_modules/**/*.js",

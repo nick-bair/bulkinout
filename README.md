@@ -12,9 +12,9 @@ See `bulk` directory for the various tests
 BASE_URL='https://staging.cloud-elements.com'
 USER_SECRET=[cloud elements secret]
 ORG_SECRET=[cloud elements secret]
-ELEMENT_TOKEN=[cloud elements element token]
-ELEMENT_KEY: [cloud elements element key]
-ELEMENT_RESOURCE:[cloud elements element resource name]
+BULKINOUT_ELEMENT_TOKEN=[cloud elements element token]
+BULKINOUT_ELEMENT_KEY: [cloud elements element key]
+BULKINOUT_ELEMENT_RESOURCE:[cloud elements element resource name]
 ```
 ***tip*** set DOCTOR_ACCOUNT=[instead of BASE_URL, USER_SECRET, ORG_SECRET]
 
@@ -22,8 +22,8 @@ ELEMENT_RESOURCE:[cloud elements element resource name]
 Requires additional parameters and [bulk](./bulk) implementation file.
 ```
 # smartrecruiters
-"VENDOR_TOKEN": ["X-SmartToken"], // can obtain via element builder prehook 
-"VENDOR_BASE_URL": "https://api.smartrecruiters.com"
+"BULKINOUT_VENDOR_TOKEN": ["X-SmartToken"], // can obtain via element builder prehook 
+"BULKINOUT_VENDOR_BASE_URL": "https://api.smartrecruiters.com"
 ```
 
 2. `$ npm start`
