@@ -22,7 +22,7 @@ module.exports = async (test, api, element, resource, options) => {
         )
         const rows = await getBulk(query)
         //report result with duration
-        const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1` }
+        const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1`, environment: process.env.BASE_URL }
         console.log(bulkStats)
         return bulkStats
 

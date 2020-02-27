@@ -11,7 +11,7 @@ module.exports = async (test, api, element, resource, options) => {
     const rows = await getRows(test, api.get, resource, options)
 
     //report result with duration (errors are recorded in count)
-    const bulkStats = { date: startExectuion, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.createdOn ? 'createdOn:' + options.createdOn : ''}`, bulk_version: `node-get-loop` }
+    const bulkStats = { date: startExectuion, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.createdOn ? 'createdOn:' + options.createdOn : ''}`, bulk_version: `node-get-loop` , environment: process.env.BULKINOUT_VENDOR_BASE_URL }
     console.log(bulkStats)
     return bulkStats
 }

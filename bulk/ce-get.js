@@ -13,7 +13,7 @@ module.exports = async (test, api, element, resource, options) => {
     const rows = await getRows(test, api.get, resource, options)
 
     //report result with duration (errors are recorded in count)
-    const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `node-get-loop` }
+    const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `node-get-loop` , environment: process.env.BASE_URL }
     console.log(bulkStats)
     return bulkStats
 }
