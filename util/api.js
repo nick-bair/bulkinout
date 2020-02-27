@@ -6,7 +6,7 @@ const authData = process.env.ELEMENT_TOKEN !== undefined ?
 
 const { curry } = require('ramda')
 const rp = require('request-promise')
-const _include_headers = (body, response) => ({'headers': response.headers, 'data': body})
+const _include_headers = (body, response) => ({'headers': response.headers, 'data': body, 'statusCode': response.statusCode})
 
 
 const get = curry(async (path, query) => {

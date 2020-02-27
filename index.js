@@ -41,7 +41,7 @@ const exec_bulk = async (test, api, element, resource, options) => {
 //--------------- run program ------------------------//
 const element = process.env.ELEMENT_KEY
 const resource = process.env.ELEMENT_RESOURCE
-let options = process.env.REQUEST_OPTIONS ? process.env.REQUEST_OPTIONS : {
+let options = process.env.ELEMENT_REQUEST_OPTIONS ? process.env.ELEMENT_REQUEST_OPTIONS : {
     pageSize: 200,
     where: `LastUpdateDate='2020-02-21T20:33:58.000Z'`
 }

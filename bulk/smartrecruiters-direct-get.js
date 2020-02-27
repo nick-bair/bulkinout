@@ -20,18 +20,24 @@ const getRows = async (test, get, resource, options) => {
         let result = []
         while (go) {
             let more = await get(`/${resource}`, options)
-            if (more.statusCode == 429) {
-                //wait for specified future epoch due to concurrency rate limt
+            
+            if (more.statusCode === 429) {
+                // wait for specified future epoch due to concurrency rate limt
                 while (Date.now() < more.headers["x-ratelimit-reset"]) {
                     console.log(`statusCode 429: ${more.data} @ ${new Date()}`)
                     timer.wait(2000)
                 }
-            } else {
+                
+            } else if (more.statusCode === 200) {
+                
                 options.offset += more.data.limit
                 result = result.concat(more.data.content)
                 go = more && more.data.content.length < options.limit ? false : true
 
                 console.log(`${test} total: ${result.length}`)
+
+            } else {
+                return { message: `Abort: received ${more.statusCode}, ${JSON.stringify(more.data)}` }
             }
         }
         return result
