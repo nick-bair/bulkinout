@@ -25,7 +25,7 @@ const getRows = async (test, get, resource, options) => {
 
             if (more.statusCode === 429) {
 
-                console.log(`statusCode 429: ${JSON.stringify(more.data)}`)
+                console.log(`statusCode 429: ${more.headers["elements-request-id"]}`)
                 // mimic ce bulk and wait rather than trust x-ratelimit-reset
                 timer.wait(2000)
 
@@ -36,9 +36,9 @@ const getRows = async (test, get, resource, options) => {
                 go = more && more.data.length < options.pageSize ? false : true
 
                 console.log(`${test} total: ${result.length}`)
-                
+
             } else {
-                return { message: `Abort: received ${more.statusCode}, ${JSON.stringify(more.data)}` }
+                console.log({ message: `Error: received ${more.statusCode}, ${more.headers["elements-request-id"]}` })
             }
         }
         return result

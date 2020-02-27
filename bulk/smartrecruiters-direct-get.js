@@ -27,7 +27,7 @@ const getRows = async (test, get, resource, options) => {
                     console.log(`statusCode 429: ${more.data} @ ${new Date()}`)
                     timer.wait(2000)
                 }
-                
+
             } else if (more.statusCode === 200) {
                 
                 options.offset += more.data.limit
@@ -37,7 +37,7 @@ const getRows = async (test, get, resource, options) => {
                 console.log(`${test} total: ${result.length}`)
 
             } else {
-                return { message: `Abort: received ${more.statusCode}, ${JSON.stringify(more.data)}` }
+                console.log({ message: `Error: received ${more.statusCode}, ${JSON.stringify(more.data)}` })
             }
         }
         return result
