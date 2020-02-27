@@ -51,7 +51,7 @@ const bulkStatus = R.curry(async (req, id) => {
         } else if (!R.contains(check.data.status, ['RUNNING', 'CREATED', 'SCHEDULED', 'CANCELLATION_PENDING'])) {
             throw new Error(`Status: ${check.body.status}, Table: ${check.body.object_name}, Bulk id: ${id}, Error: ${check.body.error}, infoMessage: ${check.body.infoMessage}`)
         }
-        console.log(`connector-js status: recordsCount ${check.data.recordsCount}`)
+        console.log(`connector-js total: ${check.data.recordsCount}`)
     }
 })
 

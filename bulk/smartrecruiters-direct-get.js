@@ -31,7 +31,7 @@ const getRows = async (test, get, resource, options) => {
                 result = result.concat(more.data.content)
                 go = more && more.data.content.length < options.limit ? false : true
 
-                console.log(`${test} status: total: ${result.length}`)
+                console.log(`${test} total: ${result.length}`)
             }
         }
         return result

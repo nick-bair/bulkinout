@@ -19,7 +19,7 @@ ELEMENT_RESOURCE:[cloud elements element resource name]
 ***tip*** set DOCTOR_ACCOUNT=[instead of BASE_URL, USER_SECRET, ORG_SECRET]
 
 ### Vendor Direct
-Requires custom implementation
+Requires additional parameters and [bulk](./bulk) implementation file.
 ```
 # smartrecruiters
 "VENDOR_TOKEN": ["X-SmartToken"], // can obtain via element builder prehook 
@@ -28,10 +28,11 @@ Requires custom implementation
 
 2. `$ npm start`
 
-***example output format:*** Script | Records Count | Resource | Duration
-```
-ce-get,747,smartrecruiters,jobs,24.958,seconds,createdOn='2020-02-21T20:33:58.000Z',node-get-loop
-connector-js,747,smartrecruiters,jobs,8.94,seconds,createdOn='2020-02-21T20:33:58.000Z',bulk-v1
-```
+Each test will output record count status to the console and append final results to results.csv located in the root directory. 
 
-3. Edit [index.js](index.js) to change the resource and query.
+***example output:***
+```
+ce-get,747,smartrecruiters,jobs,7.735,seconds,LastUpdateDate='2020-02-21T20:33:58.000Z',node-get-loop
+connector-js,747,smartrecruiters,jobs,11.914,seconds,LastUpdateDate='2020-02-21T20:33:58.000Z',bulk-v1
+smartrecruiters-direct-get,747,smartrecruiters,jobs,7.981,seconds,createdOn:2020-02-21T20:33:58.000Z,node-get-loop
+```
