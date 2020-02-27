@@ -1,15 +1,17 @@
 'option strict'
 const timer = require('../util/timer')
+const m = require('moment')
 
 module.exports = async (test, api, element, resource, options) => {
 
     //begin timing bulk function
     const start = timer.begin()
+    const startExecution = m(start).format('YYYY-MM-DD hh:mm A')
     console.log(`${test} status: started vendor direct loop @ ${start}`)
     const rows = await getRows(test, api.get, resource, options)
 
     //report result with duration (errors are recorded in count)
-    const bulkStats = { id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.createdOn ? 'createdOn:' + options.createdOn : ''}`, bulk_version: `node-get-loop` }
+    const bulkStats = { date: startExectuion, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.createdOn ? 'createdOn:' + options.createdOn : ''}`, bulk_version: `node-get-loop` }
     console.log(bulkStats)
     return bulkStats
 }

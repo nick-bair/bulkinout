@@ -12,6 +12,7 @@ module.exports = async (test, api, element, resource, options) => {
         //begin timing bulk function
         const timer = require('../util/timer')
         const start = timer.begin()
+        const startExecution = m(start).format('YYYY-MM-DD hh:mm A')
 
         const getBulk = R.pipeP(
             bulkQuery(api.post),
@@ -21,7 +22,7 @@ module.exports = async (test, api, element, resource, options) => {
         )
         const rows = await getBulk(query)
         //report result with duration
-        const bulkStats = { id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1` }
+        const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `bulk-v1` }
         console.log(bulkStats)
         return bulkStats
 
