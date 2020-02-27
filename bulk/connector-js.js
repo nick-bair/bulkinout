@@ -48,12 +48,10 @@ const bulkStatus = R.curry(async (req, id) => {
     while (true) {
         waiting(3000)
         let check = await req(`/bulk/${id}/status`, '')
-        if (R.contains(check.data.status, ['COMPLETED', 'SUCCESS'])) {
+        if (check && check.data && R.contains(check.data.status, ['COMPLETED', 'SUCCESS'])) {
             return check.data.id
-        } else if (!R.contains(check.data.status, ['RUNNING', 'CREATED', 'SCHEDULED', 'CANCELLATION_PENDING'])) {
-            throw new Error(`Status: ${check.body.status}, Table: ${check.body.object_name}, Bulk id: ${id}, Error: ${check.body.error}, infoMessage: ${check.body.infoMessage}`)
-        }
-        console.log(`connector-js total: ${check.data.recordsCount}`)
+        } 
+        console.log(`connector-js total: ${check && check.data ? check.data.recordsCount : '??'}`)
     }
 })
 
