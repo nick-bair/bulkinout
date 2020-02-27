@@ -1,25 +1,36 @@
 # Bulkinout
-Processes bulk, 1st by manually paging a Cloud Elements resource, 2nd submits the same as a bulk query to Cloud Elements and mimcks connector.js fetchTable function 
+Reports bulk processing duration for various methods of bulk using identical arguments:
+1. By paging a Cloud Elements resource
+1. By mimicking connector.js fetchTable function which submits a bulk query to Cloud Elements, checks status, then requests the json result
+1. By paging vendor direct: 
+   1. smartrecruiters
 
 See `bulk` directory for the various tests
  - [via-ce-get](./bulk/via-ce-get.js) Performs GET on the resource and aggregates each result to an array
- - [via-connectorjs](./bulk/via-connectorjs.js) Derived from connector.js to mimick thanos `fetchTable` function written in pure node.js rather than client side js. The main difference is the use of request-promise and async/await here vs. the Jquery library in thanos (which follows [MSTR example doc](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/DataConnectorSDK/Content/topics/Connecting_to_JSON_Excel_Files.htm) ). 
+ - [via-connectorjs](./bulk/via-connectorjs.js) Derived from connector.js, written for [MSTR `fetchTable` function](https://lw.microstrategy.com/msdz/MSDL/GARelease_Current/docs/projects/DataConnectorSDK/Content/topics/Connecting_to_JSON_Excel_Files.htm) and updated to use node/request-promise rather than browser/JQuery 
 
 # Usage
  1. Set environment variables:
 
+ ### Cloud Elements Info
+
 ```bash
-BASE_URL='https://staging.cloud-elements.com'
+BASE_URL=https://staging.cloud-elements.com
 USER_SECRET=[cloud elements secret]
 ORG_SECRET=[cloud elements secret]
+```
+***tip*** set DOCTOR_ACCOUNT=[instead of BASE_URL, USER_SECRET, ORG_SECRET]
+
+### Element Info
+
+```
 BULKINOUT_ELEMENT_TOKEN=[cloud elements element token]
 BULKINOUT_ELEMENT_KEY: [cloud elements element key]
 BULKINOUT_ELEMENT_RESOURCE:[cloud elements element resource name]
 ```
-***tip*** set DOCTOR_ACCOUNT=[instead of BASE_URL, USER_SECRET, ORG_SECRET]
 
 ### Vendor Direct
-Requires additional parameters and [bulk](./bulk) implementation file.
+Requires additional parameters and custom [bulk](./bulk) implementation.
 ```
 # smartrecruiters
 "BULKINOUT_VENDOR_TOKEN": ["X-SmartToken"], // can obtain via element builder prehook 
