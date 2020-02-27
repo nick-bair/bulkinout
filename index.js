@@ -24,7 +24,7 @@ const processBulkTests = async (options) => {
                 createdOn: '2020-02-21T20:33:58.000Z'
             }
             api = require('./util/api-smartrecruiters')
-            await exec_bulk('smartrecruiters-direct-get', api, element, resource, options)
+            await exec_bulk('smartrecruiters-vendor-direct-get', api, element, resource, options)
         }
     } catch (e) {
         console.log({ message: e.message ? e.message : e })
@@ -40,9 +40,5 @@ const exec_bulk = async (test, api, element, resource, options) => {
 //--------------- run program ------------------------//
 const element = process.env.BULKINOUT_ELEMENT_KEY
 const resource = process.env.BULKINOUT_ELEMENT_RESOURCE
-let options = process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS ? process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS : {
-    pageSize: 200,
-    where: `LastUpdateDate='2020-02-21T20:33:58.000Z'`
-}
-
+let options = process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS ? process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS : { pageSize: 200 } // need to at lease have a default page set for api code
 processBulkTests(options)

@@ -13,7 +13,7 @@ module.exports = async (test, api, element, resource, options) => {
     const rows = await getRows(test, api.get, resource, options)
 
     //report result with duration (errors are recorded in count)
-    const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options.where ? options.where : ''}`, bulk_version: `node-get-loop` , environment: process.env.BASE_URL }
+    const bulkStats = { date: startExecution, id: test, count: `${rows && rows.length ? rows.length : rows.message}`, element, resource, duration: timer.end(start), unit: 'seconds', filter: `${options && options.where ? options.where : ''}`, bulk_version: `node-get-loop` , environment: process.env.BASE_URL }
     console.log(bulkStats)
     return bulkStats
 }
@@ -27,7 +27,7 @@ const getRows = async (test, get, resource, options) => {
 
             if (more.statusCode === 429) {
 
-                console.log(`statusCode 429: ${more.headers["elements-request-id"]}`)
+                console.log(`statusCode 429: requestId: ${more.headers["elements-request-id"]}`)
                 // mimic ce bulk and wait rather than trust x-ratelimit-reset
                 timer.wait(2000)
 

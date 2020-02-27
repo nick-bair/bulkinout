@@ -8,7 +8,7 @@ const R = require('ramda')
 const m = require('moment')
 module.exports = async (test, api, element, resource, options) => {
     try {
-        const query = options.where ? `select * from ${resource} where ${options.where}` : `select * from ${resource}`
+        const query = options && options.where ? `select * from ${resource} where ${options.where}` : `select * from ${resource}`
 
         //begin timing bulk function
         const timer = require('../util/timer')
