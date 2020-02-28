@@ -8,16 +8,9 @@ const processBulkTests = async (options) => {
         require('./util/loadAccount')()
         // ensure necessary envs set
         require('./util/required')(['BASE_URL', 'BULKINOUT_ELEMENT_TOKEN', 'USER_SECRET', 'ORG_SECRET', 'BULKINOUT_ELEMENT_KEY', 'BULKINOUT_ELEMENT_RESOURCE'])
-        api = require('./util/api')
-
-        await exec_bulk('ce-get', api, element, resource, options)
-        await exec_bulk('connector-js', api, element, resource, options)
 
         // vendor direct if available
-        if (element === 'smartrecruiters' && process.env.BULKINOUT_VENDOR_TOKEN) {
-            //smartrecruiters, per kibana, If I send this to CE, we transform from: createdOn='2020-02-21T20:33:58.000Z'
-            //ce sends this:
-            //updatedAfter = '1950-01-01T00:00:00.000Z' AND createdOn = '2020-02-21T20:33:58.000Z'
+        if (element === 'smartrecruiters' && vendorToken) {
             options = {
                 limit: 100,
                 offset: 0,
@@ -26,6 +19,19 @@ const processBulkTests = async (options) => {
             api = require('./util/api-smartrecruiters')
             await exec_bulk('smartrecruiters-vendor-direct-get', api, element, resource, options)
         }
+        if (element === 'caagilecentral' && vendorToken) {
+            options = {
+                pagesize: 2000,
+                start: 1
+            }
+            api = require('./util/api-rally')
+            await exec_bulk('rally-vendor-direct-get', api, element, resource, options)
+        }
+        // cloud elements
+        api = require('./util/api')
+        await exec_bulk('ce-get', api, element, resource, options)
+        await exec_bulk('connector-js', api, element, resource, options)
+
     } catch (e) {
         console.log({ message: e.message ? e.message : e })
     }
@@ -40,5 +46,6 @@ const exec_bulk = async (test, api, element, resource, options) => {
 //--------------- run program ------------------------//
 const element = process.env.BULKINOUT_ELEMENT_KEY
 const resource = process.env.BULKINOUT_ELEMENT_RESOURCE
-let options = process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS ? process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS : { pageSize: 200 } // need to at lease have a default page set for api code
+const vendorToken = process.env.BULKINOUT_VENDOR_TOKEN
+let options = process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS ? process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS : { pageSize: 2000 } // need to at lease have a default page set for api code
 processBulkTests(options)
