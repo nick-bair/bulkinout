@@ -40,7 +40,7 @@ const bulkData = R.curry(async (req, tbl, id) => {
 
 const bulkQuery = R.curry(async (req, q) => {
     let bulk = await req(`/bulk/query?q=${q}`, '')
-    console.log(`connector-js status: bulk id:${bulk.id} submitted `)
+    console.log(`connector-js status: bulk id:${bulk.id} submitted to ${process.env.BASE_URL}`)
     return bulk.id
 })
 

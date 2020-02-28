@@ -8,7 +8,7 @@ module.exports = async (test, api, element, resource, options) => {
     //begin timing bulk function
     const start = timer.begin()
     const startExecution = m(start).format('YYYY-MM-DD hh:mm A')
-    console.log(`${test} status: started get loop @ ${start}`)
+    console.log(`${test} status: started get loop @ ${start} to ${process.env.BASE_URL}`)
 
     const rows = await getRows(test, api.get, resource, options)
 
@@ -40,7 +40,7 @@ const getRows = async (test, get, resource, options) => {
                 console.log(`${test} total: ${result.length}`)
 
             } else {
-                console.log({ message: `Error: received ${more.statusCode}, ${more.headers["elements-request-id"]}` })
+                return { message: `Error: received ${more.statusCode}, ${more.headers["elements-request-id"]}` }
             }
         }
         return result
