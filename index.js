@@ -42,7 +42,19 @@ const processBulkTests = async (options) => {
             api = require('./util/api-sugarcrm')
             await exec_bulk('sugarcrm-vendor-direct-get', api, element, vResource, vOptions)
         }
-        
+        else if (element === 'bullhorn' && vendorToken) {
+            //note ce element is mapped to /myCandidates but prehook will swap to /search/Candidate even with no parameters added.
+            const vOptions = {
+                count: 200,// 2000 vendor max
+                start: 0,
+                fields: "*",// CE prehook
+                query: "(dateLastModified:{0 TO *}) AND isDeleted:false",//see CE prehook
+            }
+
+            api = require('./util/api-bullhorn')
+            await exec_bulk('bullhorn-vendor-direct-get', api, element, vResource, vOptions)
+        }
+
         // Begin Cloud Elements
         const ceOptions = process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS ? process.env.BULKINOUT_ELEMENT_REQUEST_OPTIONS : { pageSize: 200 }
         const ceResource = process.env.BULKINOUT_ELEMENT_RESOURCE
