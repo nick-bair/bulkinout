@@ -7,7 +7,7 @@ module.exports = async (test, api, element, resource, options) => {
     //begin timing bulk function
     const start = timer.begin()
     const startExecution = m(start).format('YYYY-MM-DD hh:mm A')
-    console.log(`${test} status: started vendor direct loop @ ${start} to ${process.env.BASE_URL}`)
+    console.log(`${test} status: started vendor direct loop @ ${start} to ${process.env.BULKINOUT_VENDOR_BASE_URL }`)
     const rows = await getRows(test, api.get, resource, options)
 
     //report result with duration (errors are recorded in count)
